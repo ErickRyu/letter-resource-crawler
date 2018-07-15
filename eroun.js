@@ -1,24 +1,6 @@
 const cheerio = require('cheerio')
-const Proise = require('bluebird')
-const http = require('http')
 const moment = require('moment')
-
-
-var fetch = function (url) {
-    console.log('Processing', url);
-    return new Promise(function (resolve, reject) {
-        http.get(url, function (res) {
-            var body = "";
-            res.setEncoding('utf8');
-            res.on('data', function (chunk) {
-                body += chunk;
-            });
-            res.on('end', function () {
-                resolve(body);
-            })
-        });
-    });
-};
+const fetch = require('./fetch.js')
 
 
 var isDiffOneDays = function(date){
