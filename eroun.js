@@ -2,7 +2,7 @@ const cheerio = require('cheerio')
 const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')
 
-
+const DATE_FORMAT = 'YYYY-MM-DD'
 
 
 var process = function (url) {
@@ -20,7 +20,7 @@ var process = function (url) {
                     title: $(this).find('a').text().trim(),
                     href: $(this).find('a').attr('href')
                 };
-                if(isDiffOneDays(dev.date , 'YYYY-MM-DD'))
+                if(isDiffOneDays(dev.date , DATE_FORMAT))
                     devs.push(dev);
             });
         })

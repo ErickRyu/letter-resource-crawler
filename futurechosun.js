@@ -3,6 +3,7 @@ const moment = require('moment')
 const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')
 
+const DATE_FORMAT = 'YYYY.MM.DD'
 
 var process = function (url) {
     var devs = [];
@@ -20,7 +21,7 @@ var process = function (url) {
                     excerpt: $(this).find('.excerpt > p').eq(1).text().trim(),
                     href: $(this).find('a').attr('href')
                 };
-                if(isDiffOneDays(dev.date, 'YYYY.MM.DD'))
+                if(isDiffOneDays(dev.date, DATE_FORMAT))
                     devs.push(dev);
             });
         })
