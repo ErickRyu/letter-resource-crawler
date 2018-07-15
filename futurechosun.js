@@ -1,12 +1,7 @@
 const cheerio = require('cheerio')
 const moment = require('moment')
 const fetch = require('./fetch.js')
-
-
-
-var isDiffOneDays = function(date){
-     return moment().diff(moment(date, 'YYYY.MM.DD'), 'days') == 1
-}
+const isDiffOneDays = require('./isDiffOneDays')
 
 
 var process = function (url) {
@@ -25,7 +20,7 @@ var process = function (url) {
                     excerpt: $(this).find('.excerpt > p').eq(1).text().trim(),
                     href: $(this).find('a').attr('href')
                 };
-                if(isDiffOneDays(dev.date))
+                if(isDiffOneDays(dev.date, 'YYYY.MM.DD'))
                     devs.push(dev);
             });
         })
