@@ -6,9 +6,12 @@ const append = require('../googleAlertCrawler/index.js')
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 
+const name = '이로운 넷'
+const url = 'http://www.eroun.net/%EC%9D%B4%EB%A1%9C%EC%9A%B4%EB%84%B7%EC%9D%98-%EB%AA%A8%EB%93%A0-%EC%86%8C%EC%8B%9D%EB%93%A4'
+const articleListSelector = '.listing > .column'
 
 var devs = []
-var process = function (name, url) {
+var process = function (name, url, articleListSelector) {
     devs = [
         [''],
         [name],
@@ -16,7 +19,7 @@ var process = function (name, url) {
     fetch(url)
         .then(function (body) {
             $ = cheerio.load(body);
-            return $('.listing > .column');
+            return $(articleListSelector);
         })
         .then(function (rows) {
             rows.each(findAndAppendElems);
@@ -38,5 +41,6 @@ function findAndAppendElems(){
         devs.push(dev);
 }
 
-process('이로운 넷', 'http://www.eroun.net/%EC%9D%B4%EB%A1%9C%EC%9A%B4%EB%84%B7%EC%9D%98-%EB%AA%A8%EB%93%A0-%EC%86%8C%EC%8B%9D%EB%93%A4')
+
+process(name, url, articleListSelector)
 
