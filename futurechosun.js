@@ -10,7 +10,7 @@ var process = function (url) {
     var devs = [
         [''],
         ['더나은 미래'],
-        ['title', 'date', 'summary', 'link']
+        ['title', 'date', 'link']
     ];
     fetch(url)
         .then(function (body) {
@@ -23,7 +23,6 @@ var process = function (url) {
                 var dev = [
                     $(this).find('.title').eq(0).text().trim(), //title
                     $(this).find('.date').eq(0).text().trim(), //date
-                    $(this).find('.excerpt > p').eq(1).text().trim(), //summary
                     $(this).find('a').attr('href') //link
                 ];
                 if(isDiffOneDays(dev[1], DATE_FORMAT))

@@ -11,7 +11,7 @@ var process = function (url) {
     var devs = [
         [''],
         ['한겨레 heri뉴스'],
-        ['title', 'date', 'summary', 'link']
+        ['title', 'date', 'link']
     ];
     fetch(url)
         .then(function (body) {
@@ -23,7 +23,6 @@ var process = function (url) {
                 var dev = [
                     $(this).find('a.title').text().trim(), //title
                     $(this).find('.date').text().trim(), //date
-                    $(this).find('.summary').text().trim(), //summary
                     BASE_URL + $(this).find('a').attr('href'), //link
                 ];
                 if(isDiffOneDays(dev[1], DATE_FORMAT))
