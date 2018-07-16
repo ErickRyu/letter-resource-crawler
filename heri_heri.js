@@ -31,5 +31,5 @@ var process = function (url) {
 }
 
 
-process('http://heri.kr/bettersociety')
+process('http://heri.kr/heri')
 
