@@ -12,7 +12,6 @@ var process = function (url) {
     devs = [
         [''],
         ['이로운 넷'],
-        ['title', 'date', 'link']
     ];
     fetch(url)
         .then(function (body) {
