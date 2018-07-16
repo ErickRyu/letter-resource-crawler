@@ -3,6 +3,7 @@ const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')
 
 const DATE_FORMAT = 'YYYY.MM.DD'
+const BASE_URL = 'http://heri.kr/'
 
 
 var process = function (url) {
@@ -10,7 +11,6 @@ var process = function (url) {
     fetch(url)
         .then(function (body) {
             $ = cheerio.load(body);
-            //$('.grid').eq(0).remove(); // remove header row
             return $('tr');
         })
         .then(function (rows) {
@@ -18,7 +18,7 @@ var process = function (url) {
                 var dev = {
                     date: $(this).find('.date').text().trim(),
                     title: $(this).find('a.title').text().trim(),
-                    href: $(this).find('a').attr('href'),
+                    href: BASE_URL + $(this).find('a').attr('href'),
                     summary: $(this).find('.summary').text().trim(),
                 };
                 if(isDiffOneDays(dev.date , DATE_FORMAT))
@@ -31,5 +31,5 @@ var process = function (url) {
 }
 
 
-process('http://heri.kr/heri')
+process(BASE_URL + 'heri')
 
