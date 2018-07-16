@@ -24,7 +24,7 @@ var process = function (url) {
                     $(this).find('.date').text().trim(), //date
                     $(this).find('a').attr('href'), //link
                 ];
-                //if(isDiffOneDays(dev[1], DATE_FORMAT))
+                if(isDiffOneDays(dev[1], DATE_FORMAT))
                 devs.push(dev);
             });
         })
