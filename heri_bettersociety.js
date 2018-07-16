@@ -2,7 +2,7 @@ const cheerio = require('cheerio')
 const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')
 
-const DATE_FORMAT = 'YYYY.MM-DD'
+const DATE_FORMAT = 'YYYY.MM.DD'
 
 
 var process = function (url) {
