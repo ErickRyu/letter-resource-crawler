@@ -1,13 +1,18 @@
 const cheerio = require('cheerio')
 const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')
+const append = require('../googleAlertCrawler/index.js')
 
 const DATE_FORMAT = 'YYYY.MM.DD'
 const BASE_URL = 'http://heri.kr/'
 
 
 var process = function (url) {
-    var devs = [];
+    var devs = [
+        [''],
+        ['한겨레 heri뉴스'],
+        ['title', 'date', 'summary', 'link']
+    ];
     fetch(url)
         .then(function (body) {
             $ = cheerio.load(body);
@@ -15,18 +20,20 @@ var process = function (url) {
         })
         .then(function (rows) {
             rows.each(function () {
-                var dev = {
-                    date: $(this).find('.date').text().trim(),
-                    title: $(this).find('a.title').text().trim(),
-                    href: BASE_URL + $(this).find('a').attr('href'),
-                    summary: $(this).find('.summary').text().trim(),
-                };
-                if(isDiffOneDays(dev.date , DATE_FORMAT))
+                var dev = [
+                    $(this).find('a.title').text().trim(), //title
+                    $(this).find('.date').text().trim(), //date
+                    $(this).find('.summary').text().trim(), //summary
+                    BASE_URL + $(this).find('a').attr('href'), //link
+                ];
+                if(isDiffOneDays(dev[1], DATE_FORMAT))
                     devs.push(dev);
             });
         })
         .then(function () {
+            devs.push([''])
             console.log(devs)
+            append(devs)
         })
 }
 
