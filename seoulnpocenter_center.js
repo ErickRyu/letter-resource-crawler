@@ -4,13 +4,12 @@ const isDiffOneDays = require('./isDiffOneDays')
 const append = require('../google_sheet_uploader/index.js')
 
 const DATE_FORMAT = 'YYYY.MM.DD'
-const BASE_URL = 'http://heri.kr/'
 
 
 var process = function (url) {
     var devs = [
         [''],
-        ['한겨레 heri뉴스'],
+        ['서울npo - 센터소식'],
         ['title', 'date', 'link']
     ];
     fetch(url)
@@ -21,12 +20,12 @@ var process = function (url) {
         .then(function (rows) {
             rows.each(function () {
                 var dev = [
-                    $(this).find('a.title').text().trim(), //title
+                    $(this).find('a').text().trim(), //title
                     $(this).find('.date').text().trim(), //date
-                    BASE_URL + $(this).find('a').attr('href'), //link
+                    $(this).find('a').attr('href'), //link
                 ];
-                if(isDiffOneDays(dev[1], DATE_FORMAT))
-                    devs.push(dev);
+                //if(isDiffOneDays(dev[1], DATE_FORMAT))
+                devs.push(dev);
             });
         })
         .then(function () {
@@ -36,6 +35,4 @@ var process = function (url) {
         })
 }
 
-
-process(BASE_URL + 'heri')
-
+process('http://www.seoulnpocenter.kr/bbs/board.php?bo_table=bbs_center')

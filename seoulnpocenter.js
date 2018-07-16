@@ -1,7 +1,7 @@
 const cheerio = require('cheerio')
 const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')
-const append = require('../googleAlertCrawler/index.js')
+const append = require('../google_sheet_uploader/index.js')
 
 const DATE_FORMAT = 'YYYY.MM.DD'
 
@@ -9,7 +9,7 @@ const DATE_FORMAT = 'YYYY.MM.DD'
 var process = function (url) {
     var devs = [
         [''],
-        ['서울npo'],
+        ['서울npo - npo 소식'],
         ['title', 'date', 'link']
     ];
     fetch(url)
@@ -36,5 +36,4 @@ var process = function (url) {
 }
 
 process('http://www.seoulnpocenter.kr/bbs/board.php?bo_table=bbs_npo')
-process('http://www.seoulnpocenter.kr/bbs/board.php?bo_table=bbs_center')
 
