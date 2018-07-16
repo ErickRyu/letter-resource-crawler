@@ -1,3 +1,4 @@
+#!/usr/bin/node
 const cheerio = require('cheerio')
 const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')

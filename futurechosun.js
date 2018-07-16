@@ -1,3 +1,4 @@
+#!/usr/bin/node
 const cheerio = require('cheerio')
 const moment = require('moment')
 const fetch = require('./fetch.js')
