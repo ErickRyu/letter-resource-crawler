@@ -2,7 +2,7 @@
 const cheerio = require('cheerio')
 const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')
-const append = require('../google_sheet_uploader/index.js')
+const append = require('../googleAlertCrawler/index.js')
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 
