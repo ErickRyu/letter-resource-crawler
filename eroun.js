@@ -16,7 +16,6 @@ var process = function (url) {
     fetch(url)
         .then(function (body) {
             $ = cheerio.load(body);
-            //$('.grid').eq(0).remove(); // remove header row
             return $('.listing > .column');
         })
         .then(function (rows) {
