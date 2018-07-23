@@ -1,8 +1,6 @@
 #!/usr/bin/node
-const cheerio = require('cheerio')
-const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')
-const append = require('../googleAlertCrawler/index.js')
+const process = require('./process.js')
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 
@@ -10,28 +8,9 @@ const name = '이로운 넷'
 const url = 'http://www.eroun.net/%EC%9D%B4%EB%A1%9C%EC%9A%B4%EB%84%B7%EC%9D%98-%EB%AA%A8%EB%93%A0-%EC%86%8C%EC%8B%9D%EB%93%A4'
 const articleListSelector = '.listing > .column'
 
-var devs = []
-var process = function (name, url, articleListSelector) {
-    devs = [
-        [''],
-        [name],
-    ];
-    fetch(url)
-        .then(function (body) {
-            $ = cheerio.load(body);
-            return $(articleListSelector);
-        })
-        .then(function (rows) {
-            rows.each(findAndAppendElems);
-        })
-        .then(function () {
-            devs.push([''])
-            console.log(devs)
-            append(devs)
-        })
-}
 
-function findAndAppendElems(){
+function findAndAppendElems(devs){
+  return function(){
     var dev = [
         $(this).find('a').text().trim(), //title
         $(this).find('time').attr('datetime'), //date
@@ -39,8 +18,8 @@ function findAndAppendElems(){
     ];
     if(isDiffOneDays(dev[1] , DATE_FORMAT))
         devs.push(dev);
+  }
 }
 
 
-process(name, url, articleListSelector)
-
+process(name, url, articleListSelector, findAndAppendElems)
