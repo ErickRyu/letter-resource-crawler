@@ -1,42 +1,27 @@
 #!/usr/bin/node
-const cheerio = require('cheerio')
-const fetch = require('./fetch.js')
 const isDiffOneDays = require('./isDiffOneDays')
-const append = require('../google_sheet_uploader/index.js')
+const process = require('./process.js')
 
 const DATE_FORMAT = 'YYYY.MM.DD'
 const BASE_URL = 'http://heri.kr/'
 
 
-var process = function (url) {
-    var devs = [
-        [''],
-        ['한겨레 heri뉴스'],
-        ['title', 'date', 'link']
+const name = '한겨레 heri뉴스'
+const url = BASE_URL + 'heri'
+const articleListSelector = 'tr'
+
+
+function findAndAppendElems(devs) {
+  return function(){
+    var dev = [
+      $(this).find('a.title').text().trim(), //title
+      $(this).find('.date').text().trim(), //date
+      BASE_URL + $(this).find('a').attr('href'), //link
     ];
-    fetch(url)
-        .then(function (body) {
-            $ = cheerio.load(body);
-            return $('tr');
-        })
-        .then(function (rows) {
-            rows.each(function () {
-                var dev = [
-                    $(this).find('a.title').text().trim(), //title
-                    $(this).find('.date').text().trim(), //date
-                    BASE_URL + $(this).find('a').attr('href'), //link
-                ];
-                if(isDiffOneDays(dev[1], DATE_FORMAT))
-                    devs.push(dev);
-            });
-        })
-        .then(function () {
-            devs.push([''])
-            console.log(devs)
-            append(devs)
-        })
+    if(isDiffOneDays(dev[1], DATE_FORMAT))
+      devs.push(dev);
+  }
 }
 
-
-process(BASE_URL + 'heri')
+process(name, url, articleListSelector, findAndAppendElems)
 
