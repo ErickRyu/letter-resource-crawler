@@ -13,10 +13,10 @@ function findAndAppendElems(devs) {
   return function(){
   var dev = [
     $(this).find('.title').eq(0).text().trim(), //title
+    $(this).find('a').attr('href'), //link
     $(this).find('.date').eq(0).text().trim(), //date
-    $(this).find('a').attr('href') //link
   ];
-  if(isDiffOneDays(dev[1], DATE_FORMAT))
+  if(isDiffOneDays(dev[2], DATE_FORMAT))
     devs.push(dev);
   }
 }
