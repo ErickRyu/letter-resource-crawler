@@ -1,5 +1,4 @@
 #!/usr/bin/node
-const moment = require('moment')
 const isDiffOneDays = require('./isDiffOneDays')
 const process = require('./process.js')
 
