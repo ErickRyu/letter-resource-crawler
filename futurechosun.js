@@ -12,7 +12,7 @@ const url = 'http://futurechosun.com/all'
 const articleListSelector = '.grid > div'
 
 var devs = []
-var process = function (url) {
+var process = function (name, url, articleListSelector) {
   devs = [
     [''],
     [name],
@@ -41,5 +41,6 @@ function findAndAppendElems() {
   if(isDiffOneDays(dev[1], DATE_FORMAT))
     devs.push(dev);
 }
-process(url)
+
+process(name, url, articleListSelector)
 
