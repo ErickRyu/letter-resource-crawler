@@ -7,17 +7,19 @@ const append = require('../google_sheet_uploader/index.js')
 
 const DATE_FORMAT = 'YYYY.MM.DD'
 
+const name = '더 나은 미래'
+const url = 'http://futurechosun.com/all'
+const articleListSelector = '.grid > div'
+
 var process = function (url) {
     var devs = [
         [''],
-        ['더나은 미래'],
-        ['title', 'date', 'link']
+        [name],
     ];
     fetch(url)
         .then(function (body) {
             $ = cheerio.load(body);
-            //$('.grid').eq(0).remove(); // remove header row
-            return $('.grid > div');
+            return $();
         })
         .then(function (rows) {
             rows.each(function () {
@@ -38,5 +40,5 @@ var process = function (url) {
 }
 
 
-process('http://futurechosun.com/all')
+process(url)
 
