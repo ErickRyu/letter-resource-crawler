@@ -2,7 +2,7 @@ const cheerio = require('cheerio')
 const append = require('../google_sheet_uploader/index.js')
 const fetch = require('./fetch.js')
 
-module.exports = function (name, url, articleListSelector, cb) {
+module.exports = function ({name, url, articleListSelector, func}) {
   var devs = [
     [''],
     [name],
@@ -13,11 +13,10 @@ module.exports = function (name, url, articleListSelector, cb) {
       return $(articleListSelector);
     })
     .then(function (rows) {
-      rows.each(cb(devs));
+      rows.each(func(devs));
     })
     .then(function () {
       devs.push([''])
-      console.log(devs)
       append(devs)
     })
 }
